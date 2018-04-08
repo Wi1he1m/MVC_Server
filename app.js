@@ -1,33 +1,15 @@
 var express     = require('express'),
     app         = express(),
     bodyParser  = require('body-parser'),
-    mongoose    = require('mongoose');
-
-mongoose.connect("mongodb://localhost/yelpkaempfen");
+    mongoose    = require('mongoose'),
+    Campground  = require("./models/campground"),
+    seedDB      = require("./seeds");
+    
+mongoose.connect("mongodb://localhost/yelpkaempfen_v3");
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}));
-
-var campgroundSchema = new mongoose.Schema({
-    site: String,
-    url: String,
-    description: String
-});
-var Campground = mongoose.model("Campground", campgroundSchema);
-
-// Campground.create(
-//     {
-//       site: "Crushing Rock",
-//       url:"https://www.photosforclass.com/download/pixabay-918954?webUrl=https%3A%2F%2Fpixabay.com%2Fget%2Fe034b9062df01c22d2524518b7444795ea76e5d004b0144397f5c57aa7e9b3_960.jpg&user=Free-Photos",
-//       description:"Don't sleep too soundly, you may be crushed by a giant rock!"
-        
-//     }, function(error, campground){
-//         if(error){
-//             console.log(error);
-//         } else {
-//             console.log(campground);
-//         }
-//     });
+seedDB();
 
 app.get("/", function(req,res){
     res.render("landing");
@@ -63,9 +45,10 @@ app.get("/campgrounds/new", function(req, res){
     res.render("new");
 });
 
+// SHOW ROUTE
 app.get("/campgrounds/:id", function(req, res){
     //find campground with respective id
-    Campground.findById(req.params.id, function(err, dbCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, dbCampground){
         if(err){
             console.log(err);
         } else {
