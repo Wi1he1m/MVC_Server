@@ -6,8 +6,8 @@ var express     = require('express'),
     Campground  = require("./models/campground"),
     seedDB      = require("./seeds");
     
-mongoose.connect("mongodb://localhost/yelpkaempfen_v3");
-app.use(express.static("public"));
+mongoose.connect("mongodb://localhost/yelpkaempfen_v5");
+app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 seedDB();
