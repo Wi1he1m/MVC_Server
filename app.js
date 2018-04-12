@@ -1,12 +1,15 @@
-var express     = require('express'),
-    app         = express(),
-    bodyParser  = require('body-parser'),
-    mongoose    = require('mongoose'),
-    Comment     = require("./models/comment"),
-    Campground  = require("./models/campground"),
-    seedDB      = require("./seeds");
+var express                 = require('express'),
+    app                     = express(),
+    bodyParser              = require('body-parser'),
+    mongoose                = require('mongoose'),
+    passport                = require('passport'),
+    LocalStrategy           = require('passport-local'),
+    Comment                 = require("./models/comment"),
+    Campground              = require("./models/campground"),
+    User                    = require("./models/user"),
+    seedDB                  = require("./seeds");
     
-mongoose.connect("mongodb://localhost/yelpkaempfen_v5");
+mongoose.connect("mongodb://localhost/yelpkaempfen_v6");
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}));
