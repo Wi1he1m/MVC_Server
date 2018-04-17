@@ -2,6 +2,6 @@ language: node_js
 
 services: mongodb
     
-before_script:
-    -sleep 15
-    -mongo mydb_test --eval 'db.createUser({user:"travis", pwd:"test",roles:[readWrite]});'
+# before_script:
+#     -sleep 15
+#     -mongo mydb_test --eval 'db.createUser({user:"travis", pwd:"test",roles:[readWrite]});'g
